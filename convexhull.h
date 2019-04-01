@@ -683,19 +683,19 @@ class KirkPatrickSeidel
 	            T.push_back(sol[i]);
 	        }
 	    }
-	    Node* temp = upperhull(pumin,pumax,T);
-	    Node* temp1=temp;
+	    // Node* temp = upperhull(pumin,pumax,T);
+	    // Node* temp1=temp;
 	    ofstream fileout;
 	    fileout.open("testpoints.txt");
-	    cout<<"\nUpper Hull : \n";
-	    while(temp->next)
-	    {
-	    	cout<<temp->p.first<<" "<<temp->p.second<<endl;
-	    	fileout<< to_string(temp->p.first)<<" "<<to_string(temp->p.second)<<" "<<to_string(temp->next->p.first)<<" "<<to_string(temp->next->p.second)<<" 1\n";
-	        temp=temp->next;
-	    }
-	    cout<<temp->p.first<<" "<<temp->p.second<<endl;
-	    fileout<<to_string(temp->p.first)<<" "<<to_string(temp->p.second)<<" ";
+	    // cout<<"\nUpper Hull : \n";
+	    // while(temp->next)
+	    // {
+	    // 	cout<<temp->p.first<<" "<<temp->p.second<<endl;
+	    // 	fileout<< to_string(temp->p.first)<<" "<<to_string(temp->p.second)<<" "<<to_string(temp->next->p.first)<<" "<<to_string(temp->next->p.second)<<" 1\n";
+	    //     temp=temp->next;
+	    // }
+	    // cout<<temp->p.first<<" "<<temp->p.second<<endl;
+	    // fileout<<to_string(temp->p.first)<<" "<<to_string(temp->p.second)<<" ";
 
 	    sort(points.begin(),points.end(),comparepointslh);
 	    pair<int,int> plmin=points[0];
@@ -703,64 +703,64 @@ class KirkPatrickSeidel
 	    pair<int,int> plmax=points[points.size()-1];
 	    sort(points.begin(),points.end(),comparepointslh);
 
-	    // T.clear();
-	    // T.push_back(plmin);
-	    // T.push_back(plmax);
-	    // sol.clear();
-	    // pfirst=points[0];
-	    // sol.push_back(points[0]);
-	    // for(int i=1;i<points.size();i++)
-	    // {
-	    //     int countstep=0;
-	    //     if(pfirst.first==points[i].first)
-	    //     {
-	    //         countstep++;
-	    //     }
-	    //     else
-	    //     {
-	    //         sol.push_back(points[i-countstep]);
-	    //         pfirst=points[i];
-	    //     }
-	    // }
-	    // for(int i=0;i<sol.size();i++)
-	    // {
-	    //     if(sol[i].first>plmin.first && sol[i].first<plmax.first)
-	    //     {
-	    //         T.push_back(sol[i]);
-	    //     }
-	    // }
+	    T.clear();
+	    T.push_back(plmin);
+	    T.push_back(plmax);
+	    sol.clear();
+	    pfirst=points[0];
+	    sol.push_back(points[0]);
+	    for(int i=1;i<points.size();i++)
+	    {
+	        int countstep=0;
+	        if(pfirst.first==points[i].first)
+	        {
+	            countstep++;
+	        }
+	        else
+	        {
+	            sol.push_back(points[i-countstep]);
+	            pfirst=points[i];
+	        }
+	    }
+	    for(int i=0;i<sol.size();i++)
+	    {
+	        if(sol[i].first>plmin.first && sol[i].first<plmax.first)
+	        {
+	            T.push_back(sol[i]);
+	        }
+	    }
 
-	    // Node* temp = lowerhull(plmax,plmin,T);
-	    // map<pair<int, int>, int>m;
-	    // cout<<"LH : \n";
-	    // while(temp)
-	    // {
-	    // 	cout<<temp->p.first<<" "<<temp->p.second<<"\n";
-	    //     m[temp->p] = 0;
-	    //     temp=temp->next;
-	    // }
-	    // cout<<"LH ends : \n\n";
-	    // auto it = m.rbegin();
-	    // auto it1 = m.rbegin();
-	    // fileout<<to_string(it->first.first) <<" "<< to_string(it->first.second)<<" "<<" 1\n";
-	    // fileout << to_string(it->first.first) <<" "<< to_string(it->first.second)<<" ";
+	    Node* temp = lowerhull(plmax,plmin,T);
+	    map<pair<int, int>, int>m;
+	    cout<<"LH : \n";
+	    while(temp)
+	    {
+	    	cout<<temp->p.first<<" "<<temp->p.second<<"\n";
+	        m[temp->p] = 0;
+	        temp=temp->next;
+	    }
+	    cout<<"LH ends : \n\n";
+	    auto it = m.rbegin();
+	    auto it1 = m.rbegin();
+	    fileout<<to_string(it->first.first) <<" "<< to_string(it->first.second)<<" "<<" 1\n";
+	    fileout << to_string(it->first.first) <<" "<< to_string(it->first.second)<<" ";
 
-	    // cout<<it->first.first<<" "<<it->first.second<<endl;
-	    // it++;
-	    // for (; it != m.rend(); it++ )
-	    // {
-	    // 	cout<<it->first.first<<" "<<it->first.second<<endl;
-	    //     fileout << to_string(it->first.first)  // string (key)
-	    //               << " "
-	    //               << to_string(it->first.second)
-	    //               <<" 1\n";   // string's value 
+	    cout<<it->first.first<<" "<<it->first.second<<endl;
+	    it++;
+	    for (; it != m.rend(); it++ )
+	    {
+	    	cout<<it->first.first<<" "<<it->first.second<<endl;
+	        fileout << to_string(it->first.first)  // string (key)
+	                  << " "
+	                  << to_string(it->first.second)
+	                  <<" 1\n";   // string's value 
 	                 
-	    //     fileout << to_string(it->first.first)  // string (key)
-	    //               << " "
-	    //               << to_string(it->first.second)
-	    //               <<" ";
+	        fileout << to_string(it->first.first)  // string (key)
+	                  << " "
+	                  << to_string(it->first.second)
+	                  <<" ";
 
-	    // }
+	    }
 	    // fileout<<to_string(temp1->p.first)<<" "<<to_string(temp1->p.second)<<" 1\n";
 	    fileout.close();
 	}

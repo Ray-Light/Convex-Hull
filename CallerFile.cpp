@@ -19,6 +19,7 @@ int main() {
     v.push_back(make_pair(2, 3));
     v.push_back(make_pair(3, -5));
     v.push_back(make_pair(-2, -5));
+    v.push_back(make_pair(-3, -6));
 
 
 	KirkPatrickSeidel ks(v);

@@ -656,17 +656,17 @@ class KirkPatrickSeidel
 	            T.push_back(sol[i]);
 	        }
 	    }
-	    Node* temp = upperhull(pumin,pumax,T);
-	    Node* temp1=temp;
+	    // Node* temp = upperhull(pumin,pumax,T);
+	    // Node* temp1=temp;
 	    ofstream fileout;
 	    fileout.open("testpoints.txt");
-	    while(temp->next)
-	    {
-	    	fileout<< to_string(temp->p.first)<<" "<<to_string(temp->p.second)<<" "<<to_string(temp->next->p.first)<<" "<<to_string(temp->next->p.second)<<" 1\n";
-	        temp=temp->next;
-	    }
+	    // while(temp->next)
+	    // {
+	    // 	fileout<< to_string(temp->p.first)<<" "<<to_string(temp->p.second)<<" "<<to_string(temp->next->p.first)<<" "<<to_string(temp->next->p.second)<<" 1\n";
+	    //     temp=temp->next;
+	    // }
 	    
-	    fileout<<to_string(temp->p.first)<<" "<<to_string(temp->p.second)<<" ";
+	    // fileout<<to_string(temp->p.first)<<" "<<to_string(temp->p.second)<<" ";
 
 	    sort(points.begin(),points.end(),comparepointslh);
 	    pair<int,int> plmin=points[0];
@@ -701,14 +701,16 @@ class KirkPatrickSeidel
 	        }
 	    }
 
-	    temp = lowerhull(plmax,plmin,T);
+	    Node* temp = lowerhull(plmax,plmin,T);
 	    map<pair<int, int>, int>m;
+	    cout<<"LH : \n";
 	    while(temp)
 	    {
+	    	cout<<temp->p.first<<" "<<temp->p.second<<"\n";
 	        m[temp->p] = 0;
 	        temp=temp->next;
 	    }
-
+	    cout<<"LH ends : \n\n";
 	    auto it = m.rbegin();
 	    auto it1 = m.rbegin();
 	    fileout<<to_string(it->first.first) <<" "<< to_string(it->first.second)<<" "<<" 1\n";
@@ -730,7 +732,7 @@ class KirkPatrickSeidel
 	                  <<" ";
 
 	    }
-	    fileout<<to_string(temp1->p.first)<<" "<<to_string(temp1->p.second)<<" 1\n";
+	    // fileout<<to_string(temp1->p.first)<<" "<<to_string(temp1->p.second)<<" 1\n";
 	    fileout.close();
 	}
 

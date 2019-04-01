@@ -291,18 +291,21 @@ class KirkPatrickSeidel
 	        }
 	    }
 
-	    int maxval=INT_MIN;
+	    double maxval=INT_MIN;
 	    for(int i=0;i<n;i++)
 	    {
 	        if((s[i].second-(midslope*s[i].first))>maxval)
-	            maxval=s[i].second-(midslope*s[i].first);
+	            maxval=(double)s[i].second-(midslope*(double)s[i].first);
 
 	    }
+
+	    cout<<"max val of intercept : "<<maxval<<endl;
 	    vector<pair<int,int>> maxset;
 	    pair<int,int> pmax=make_pair(INT_MIN,INT_MIN);
 	    pair<int,int> pmin=make_pair(INT_MAX,INT_MAX);
 	    for(int i=0;i<n;i++)
 	    {
+	    	cout<<"s[i] : "<<s[i].first<<" "<<s[i].second<<endl;
 	        if(maxval==(s[i].second-(midslope*s[i].first)))
 	        {
 	            maxset.push_back(s[i]);

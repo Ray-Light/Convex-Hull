@@ -22,7 +22,7 @@ int isLeft(pair<int,int> a, pair<int,int> b, pair<int,int> c){
 //Utility function to find the slope between a pair of points
 double slope(pair<pair<int,int>,pair<int,int>> pairs)
 {
-    double slopeline=(pairs.second.second-pairs.first.second)/(pairs.second.first-pairs.first.first);
+    double slopeline=((double)pairs.second.second-(double)pairs.first.second)/((double)pairs.second.first-(double)pairs.first.first);
     return slopeline;
 }
 

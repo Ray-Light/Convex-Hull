@@ -18,9 +18,11 @@ int main() {
     v.push_back(make_pair(1, 1));
     v.push_back(make_pair(2, 3));
     v.push_back(make_pair(3, -5));
+    v.push_back(make_pair(-2, -5));
+
 
 	KirkPatrickSeidel ks(v);
 	ks.kps();
-	
+
 	return 0;
 }

@@ -577,11 +577,11 @@ class KirkPatrickSeidel
 	    prpl = lowerBridge(v, x_med);
 	    pair<int,int> pr=prpl.first;
 	    pair<int,int> pl=prpl.second;
-	    cout<<pr.first<<" "<<pr.second<<endl;
-	    cout<<pl.first<<" "<<pl.second<<endl;
+	    // cout<<pr.first<<" "<<pr.second<<endl;
+	    // cout<<pl.first<<" "<<pl.second<<endl;
 	    vector<pair<int,int>> ntleft,ntright;
 
-	    cout<<tleft.size()<<" "<<tright.size()<<endl;
+	    // cout<<tleft.size()<<" "<<tright.size()<<endl;
 
 	    ntleft.push_back(pl);
 	    ntleft.push_back(pmin);
@@ -713,9 +713,12 @@ class KirkPatrickSeidel
 	    auto it1 = m.rbegin();
 	    fileout<<to_string(it->first.first) <<" "<< to_string(it->first.second)<<" "<<" 1\n";
 	    fileout << to_string(it->first.first) <<" "<< to_string(it->first.second)<<" ";
+
+	    cout<<it->first.first<<" "<<it->first.second<<endl;
 	    it++;
 	    for (; it != m.rend(); it++ )
 	    {
+	    	cout<<it->first.first<<" "<<it->first.second<<endl;
 	        fileout << to_string(it->first.first)  // string (key)
 	                  << " "
 	                  << to_string(it->first.second)

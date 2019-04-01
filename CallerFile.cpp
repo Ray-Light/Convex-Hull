@@ -8,14 +8,14 @@ int main() {
 	vector<pair<int, int> >v;
 
     // v.push_back(make_pair());
-    // v.push_back(make_pair(1, -1));
-    // v.push_back(make_pair(1, 0));
-    // v.push_back(make_pair(2, -1));
-    // v.push_back(make_pair(2, 0));
-    // v.push_back(make_pair(2, 2));
+    v.push_back(make_pair(1, -1));
+    v.push_back(make_pair(1, 0));
+    v.push_back(make_pair(2, -1));
+    v.push_back(make_pair(2, 0));
+    v.push_back(make_pair(2, 2));
     v.push_back(make_pair(3, 2));
-    // v.push_back(make_pair(4, 0));
-    // v.push_back(make_pair(6, 0));
+    v.push_back(make_pair(4, 0));
+    v.push_back(make_pair(6, 0));
     v.push_back(make_pair(7, 0));
     v.push_back(make_pair(8, 0));
 

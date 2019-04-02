@@ -17,13 +17,14 @@ int main() {
     // v.push_back(make_pair(3, 5));
     // v.push_back(make_pair(4, 0));
     // v.push_back(make_pair(4, -6));
+    // v.push_back(make_pair(4, -7));
     v.push_back(make_pair(4, 2));
     // v.push_back(make_pair(4, 6));
     // v.push_back(make_pair(6, 0));
     // v.push_back(make_pair(7, 0));
     // v.push_back(make_pair(8, 0));
     v.push_back(make_pair(8, 3));
-    // v.push_back(make_pair(8, -6));
+    v.push_back(make_pair(8, -6));
 
     // v.push_back(make_pair(9, 0));
     // v.push_back(make_pair(9, 1));

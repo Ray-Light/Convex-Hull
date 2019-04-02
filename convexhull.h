@@ -451,7 +451,7 @@ class KirkPatrickSeidel
 
 		sort(s.begin(), s.end());
 
-		cout<<"Points in "<<iterb++<<" are : \n";
+		cout<<"Points in "<<iterlb++<<" are : \n";
 		for (int i = 0; i < s.size(); ++i)
 		{
 			cout<<s[i].first<<" "<<s[i].second<<endl;
@@ -590,14 +590,50 @@ class KirkPatrickSeidel
 	    
 
 	    cout<<"pmin : "<<pmin.first<<" "<<pmin.second<<" and pmax : "<<pmax.first<<" "<<pmax.second<<endl;
-	    if(pmin.first<l.first && pmax.first>=l.first)
+	    //FATAL : IF CONDITION IS SAME AS UPPER BRIDGE, SHOULD IT BE CHANGED?
+	    if(pmin.first<=l.first && pmax.first>l.first)
 	    {
-	    	cout<<"***********************************************Points returned during " << (iterb - 1) << " iteration : "<<pmin.first<<" "<<pmin.second<<" and "<<pmax.first<<" "<<pmax.second<<endl;
+	    	cout<<"Hello\n";
+	    	cout<<"***********************************************Points returned during " << (iterlb - 1) << " iteration : "<<pmin.first<<" "<<pmin.second<<" and "<<pmax.first<<" "<<pmax.second<<endl;
+	        cout<<"Hello2\n";
 	        return make_pair(pmax,pmin);
 	    }
-	    
-
-	    if(pmax.first<l.first)
+	    cout<<"Yo\n";
+	    //Copied from upper bridge starts
+	    if(pmax.first<=l.first)
+	    {
+	        for(int i=0;i<large.size();i++)
+	        {
+	            cand.push_back(large[i].first);
+	            cand.push_back(large[i].second);
+	        }
+	        for(int i=0;i<small.size();i++)
+	        {
+	            cand.push_back(small[i].second);
+	        }
+	        for(int i=0;i<equal.size();i++)
+	        {
+	            cand.push_back(equal[i].second);
+	        }
+	    }
+	    if(pmin.first>l.first)
+	    {
+	        for(int i=0;i<small.size();i++)
+	        {
+	            cand.push_back(small[i].first);
+	            cand.push_back(small[i].second);
+	        }
+	        for(int i=0;i<large.size();i++)
+	        {
+	            cand.push_back(large[i].first);
+	        }
+	        for(int i=0;i<equal.size();i++)
+	        {
+	            cand.push_back(equal[i].first);
+	        }
+	    }
+	    //Copied from Upper Bridge ends
+	    /*if(pmax.first<l.first)
 	    {
 	        for(int i=0;i<small.size();i++)
 	        {
@@ -631,7 +667,7 @@ class KirkPatrickSeidel
 	        {
 	            cand.push_back(equal[i].second);
 	        }
-	    }
+	    }*/
 	    return lowerBridge(cand,l);
 	}
 
@@ -651,7 +687,7 @@ class KirkPatrickSeidel
 	    }
 	    pair<int,int> x_med;
 	    if(n%2==0)
-	        x_med= make_pair((v[n/2-1].first+v[n/2].first)/2,(v[n/2-1].second+v[n/2].second)/2);
+	        x_med= v[n/2];//make_pair((v[n/2-1].first+v[n/2].first)/2,(v[n/2-1].second+v[n/2].second)/2);
 	    else
 	        x_med = v[n/2];
 	    vector<pair<int, int> >tleft, tright;
@@ -696,7 +732,18 @@ class KirkPatrickSeidel
 	            ntright.push_back(tright[i]);
 	        }        
 	    }
+	    cout<<"ntright points : "<<endl;
+	    for (int i = 0; i < ntright.size(); ++i)
+	    {
+	    	cout<<ntright[i].first<<" "<<ntright[i].second<<endl;
+	    }
 	    Node* left=lowerhull(pmax,pr,ntright);
+	    cout<<"ntleft points : "<<endl;
+	    for (int i = 0; i < ntleft.size(); ++i)
+	    {
+	    	cout<<ntleft[i].first<<" "<<ntleft[i].second<<endl;
+	    }
+	    cout<<"Points end\n";
 	    Node* right=lowerhull(pl,pmin,ntleft);
 	    if(left == NULL) {
 	        left = right;

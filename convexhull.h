@@ -267,11 +267,11 @@ class KirkPatrickSeidel
 	    	cout<<k[i]<<endl;
 	    }
 	    double midslope;
-	    if(k.size()%2==0)
-	    {
-	        midslope=(k[k.size()/2]+k[(k.size()/2)-1])/2;
-	    }
-	    else
+	    // if(k.size()%2==0)
+	    // {
+	        // midslope=(k[k.size()/2]+k[(k.size()/2)-1])/2;
+	    // }
+	    // else
 	        midslope=k[k.size()/2];
 
 	    vector<pair<pair<int,int>,pair<int,int>>> small,equal,large;
@@ -294,7 +294,7 @@ class KirkPatrickSeidel
 	    double maxval=INT_MIN;
 	    for(int i=0;i<n;i++)
 	    {
-	        if((s[i].second-(midslope*s[i].first))>maxval)
+	        if(((double)s[i].second-(midslope*(double)s[i].first))>maxval)
 	            maxval=(double)s[i].second-(midslope*(double)s[i].first);
 
 	    }
@@ -306,7 +306,7 @@ class KirkPatrickSeidel
 	    for(int i=0;i<n;i++)
 	    {
 	    	cout<<"s[i] : "<<s[i].first<<" "<<s[i].second<<endl;
-	        if(maxval==(s[i].second-(midslope*s[i].first)))
+	        if(maxval==((double)s[i].second-(midslope*(double)s[i].first)))
 	        {
 	            maxset.push_back(s[i]);
 	            if(pmax.first<s[i].first)
@@ -436,24 +436,48 @@ class KirkPatrickSeidel
 	    return left;
 	}
 
+	
+
+
+
+	int iterlb = 1;
+	int iterlh = 1;
+
+
+
 	pair<pair<int,int>, pair<int, int> > lowerBridge(vector<pair<int,int>>s,pair<int,int>l)
 	{
-	    vector<pair<int,int> > cand;
-	    sort(s.begin(),s.end());
+		cout<<"Hull iteration : "<<iterlh - 1<<endl;
+
+		sort(s.begin(), s.end());
+
+		cout<<"Points in "<<iterb++<<" are : \n";
+		for (int i = 0; i < s.size(); ++i)
+		{
+			cout<<s[i].first<<" "<<s[i].second<<endl;
+		}
+		cout<<"End points \n";
+
+		vector<pair<int,int> > cand;
+
 	    int n = s.size();
+	    // sort(s.begin(),s.end());
 	    if(n==2)
 	    {
 	        sort(s.begin(),s.end());
 	        return make_pair(s[1],s[0]);
 	    }
+
 	    vector<pair<pair<int,int>,pair<int,int>>> pairs;
 	    vector<double> k;
 	    vector< pair< double, pair< pair< int, int >,pair< int,int > > > > slope_pair;
 	    bool flag=true;
+
+	    
 	    for(int i=0;i<=n-2;i+=2)
 	    {
 	        if(s[i].first<s[i+1].first)
-	            pairs.push_back(make_pair(s[i+1],s[i]));
+	            pairs.push_back(make_pair(s[i],s[i+1]));
 	        else
 	            pairs.push_back(make_pair(s[i+1],s[i]));
 	        if(i==n-2)
@@ -461,11 +485,21 @@ class KirkPatrickSeidel
 	    }
 	    if(flag)
 	        cand.push_back(s[n-1]);
+
+	    
+	    cout<<"Points in pairs : \n";
+		for (int i = 0; i < pairs.size(); ++i)
+		{
+			cout<<pairs[i].first.first<<" "<<pairs[i].first.second<<" and "<<pairs[i].second.first<<" "<<pairs[i].second.second<<endl;
+		}
+		cout<<"End points \n";
+
+	    
 	    for(int i=0;i<pairs.size();i++)
 	    {
 	        if(pairs[i].first.first==pairs[i].second.first)
 	        {
-	            if(pairs[i].first.second<pairs[i].second.second)
+	            if(pairs[i].first.second>pairs[i].second.second)
 	                cand.push_back(pairs[i].first);
 	            else
 	                cand.push_back(pairs[i].second);
@@ -477,15 +511,25 @@ class KirkPatrickSeidel
 	            slope_pair.push_back(make_pair(temp,pairs[i]));
 	        }        
 	    }
+	    
+	    
 	    sort(k.begin(),k.end());
-	    double midslope;
-	    if(k.size()%2==0)
-	    {
-	        midslope=(k[k.size()/2]+k[(k.size()/2)-1])/2;
-	    }
-	    else
-	        midslope=k[k.size()/2];
+	    
 
+	    cout<<"Slope size and points : "<<k.size()<<endl;
+	    for (int i = 0; i < k.size(); ++i)
+	    {
+	    	cout<<k[i]<<endl;
+	    }
+	    double midslope;
+	    // if(k.size()%2==0)
+	    // {
+	        // midslope=(k[k.size()/2]+k[(k.size()/2)-1])/2;
+	    // }
+	    // else
+	    midslope=k[k.size()/2];
+
+	    
 	    vector<pair<pair<int,int>,pair<int,int>>> small,equal,large;
 	    for(int i=0;i<slope_pair.size();i++)
 	    {
@@ -503,21 +547,34 @@ class KirkPatrickSeidel
 	        }
 	    }
 
-	    int minval=INT_MAX;
+	    
+	    double maxval=1000; //MAXIMUM VALUE OF INTERCEPT ON NEGATIVE Y AXIS
+	    cout<<"************************\n";
+	    cout<<"Points : \n";
 	    for(int i=0;i<n;i++)
 	    {
-	        if((s[i].second-(midslope*s[i].first))< minval)
-	            minval=s[i].second-(midslope*s[i].first);
+	    	cout<<s[i].first<<" "<<s[i].second<<" and intercept : "<<((double)s[i].second-(midslope*(double)s[i].first))<<endl;
+	        if(((double)s[i].second-(midslope*(double)s[i].first)) < maxval)
+	            maxval=(double)s[i].second-(midslope*(double)s[i].first);
 
 	    }
-	    vector<pair<int,int>> minset;
+	    cout<<"------------------------\n";
+	    
+
+	    cout<<"max val of intercept : "<<maxval<<endl;
+	    
+
+	    vector<pair<int,int>> maxset;
 	    pair<int,int> pmax=make_pair(INT_MIN,INT_MIN);
 	    pair<int,int> pmin=make_pair(INT_MAX,INT_MAX);
-	    for(int i=0;i<n;i++)
+	    
+
+	    for(int i=0;i<s.size();i++)
 	    {
-	        if(minval==(s[i].second-(midslope*s[i].first)))
+	    	cout<<"s[i] : "<<s[i].first<<" "<<s[i].second<<endl;
+	        if(maxval==((double)s[i].second-(midslope*(double)s[i].first)))
 	        {
-	            minset.push_back(s[i]);
+	            maxset.push_back(s[i]);
 	            if(pmax.first<s[i].first)
 	            {
 	                pmax.first=s[i].first;
@@ -530,11 +587,17 @@ class KirkPatrickSeidel
 	            }
 	        }
 	    }
+	    
+
+	    cout<<"pmin : "<<pmin.first<<" "<<pmin.second<<" and pmax : "<<pmax.first<<" "<<pmax.second<<endl;
 	    if(pmin.first<l.first && pmax.first>=l.first)
 	    {
+	    	cout<<"***********************************************Points returned during " << (iterb - 1) << " iteration : "<<pmin.first<<" "<<pmin.second<<" and "<<pmax.first<<" "<<pmax.second<<endl;
 	        return make_pair(pmax,pmin);
 	    }
-	    if(pmin.first>l.first)
+	    
+
+	    if(pmax.first<l.first)
 	    {
 	        for(int i=0;i<small.size();i++)
 	        {
@@ -543,15 +606,18 @@ class KirkPatrickSeidel
 	        }
 	        for(int i=0;i<large.size();i++)
 	        {
-	            cand.push_back(large[i].second);
+	            cand.push_back(large[i].first);
 	        }
 	        for(int i=0;i<equal.size();i++)
 	        {
-	            cand.push_back(equal[i].second);
+	            cand.push_back(equal[i].first);
 	        }
 	    }
-	    if(pmax.first<=l.first)
+	    
+
+	    if(pmin.first>=l.first)
 	    {
+	    	cout<<"Inside right points\n";
 	        for(int i=0;i<large.size();i++)
 	        {
 	            cand.push_back(large[i].first);
@@ -559,11 +625,11 @@ class KirkPatrickSeidel
 	        }
 	        for(int i=0;i<small.size();i++)
 	        {
-	            cand.push_back(small[i].first);
+	            cand.push_back(small[i].second);
 	        }
 	        for(int i=0;i<equal.size();i++)
 	        {
-	            cand.push_back(equal[i].first);
+	            cand.push_back(equal[i].second);
 	        }
 	    }
 	    return lowerBridge(cand,l);
@@ -571,6 +637,7 @@ class KirkPatrickSeidel
 
 	Node* lowerhull(pair<int,int> pmin, pair<int,int> pmax,vector<pair<int, int>> v)
 	{
+		iterlh++;iterlb = 1;
 	    int n = v.size();
 	    sort(v.begin(), v.end());
 	    if(pmin.first == pmax.first && pmin.second == pmax.second)

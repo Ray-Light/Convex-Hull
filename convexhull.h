@@ -671,11 +671,19 @@ class KirkPatrickSeidel
 	    return lowerBridge(cand,l);
 	}
 
-	Node* lowerhull(pair<int,int> pmin, pair<int,int> pmax,vector<pair<int, int>> v)
+	Node* lowerhull(pair<int,int> pmax, pair<int,int> pmin,vector<pair<int, int>> v)
 	{
 		iterlh++;iterlb = 1;
 	    int n = v.size();
 	    sort(v.begin(), v.end());
+
+	    cout<<"Inside lowerhull : pmin : "<< pmin.first<<" "<<pmin.second<<" and pmax : "<<pmax.first<<" "<<pmax.second<<endl;
+	    for (int i = 0; i < v.size(); ++i)
+	    {
+	    	cout<<v[i].first<<" "<<v[i].second<<endl;
+	    }
+	    cout<<"Points end\n";
+
 	    if(pmin.first == pmax.first && pmin.second == pmax.second)
 	    {
 	        Node* head=(Node *)malloc(sizeof(Node));
@@ -703,20 +711,52 @@ class KirkPatrickSeidel
 	            tright.push_back(v[i]);
 	        }
 	    }
+
+	    cout<<"Median : "<<x_med.first<<" "<<x_med.second<<endl;
+
+	    cout<<"tleft points : "<<endl;
+	    for (int i = 0; i < tleft.size(); ++i)
+	    {
+	    	cout<<tleft[i].first<<" "<<tleft[i].second<<endl;
+	    }
+
+	    cout<<"tright points : "<<endl;
+	    for (int i = 0; i < tright.size(); ++i)
+	    {
+	    	cout<<tright[i].first<<" "<<tright[i].second<<endl;
+	    }
+	    cout<<"tleft and tright end\n";
+
+
 	    pair<pair<int, int>, pair<int, int> > prpl;
 	    prpl = lowerBridge(v, x_med);
+
+
 	    pair<int,int> pr=prpl.first;
 	    pair<int,int> pl=prpl.second;
-	    // cout<<pr.first<<" "<<pr.second<<endl;
-	    // cout<<pl.first<<" "<<pl.second<<endl;
+
+
+
+	    cout<<"pr : "<<pr.first<<" "<<pr.second<<endl;
+	    cout<<"pl : "<<pl.first<<" "<<pl.second<<endl;
+
+
+
 	    vector<pair<int,int>> ntleft,ntright;
 
-	    // cout<<tleft.size()<<" "<<tright.size()<<endl;
+
+
 
 	    ntleft.push_back(pl);
 	    ntleft.push_back(pmin);
 	    ntright.push_back(pr);
-	    ntright.push_back(pmax);
+	    ntright.push_back(pmax);cout<<"pmax : "<<pmax.first<<" "<<pmax.second<<endl;
+
+	    cout<<"ntright points : -----------------------------"<<endl;
+	    for (int i = 0; i < ntright.size(); ++i)
+	    {
+	    	cout<<ntright[i].first<<" "<<ntright[i].second<<endl;
+	    }
 
 	    for(int i=0;i<tleft.size();i++)
 	    {
@@ -732,19 +772,41 @@ class KirkPatrickSeidel
 	            ntright.push_back(tright[i]);
 	        }        
 	    }
+
+
+
+
+
+
 	    cout<<"ntright points : "<<endl;
 	    for (int i = 0; i < ntright.size(); ++i)
 	    {
 	    	cout<<ntright[i].first<<" "<<ntright[i].second<<endl;
 	    }
+
+
+
+
 	    Node* left=lowerhull(pmax,pr,ntright);
+
+
+
+
 	    cout<<"ntleft points : "<<endl;
 	    for (int i = 0; i < ntleft.size(); ++i)
 	    {
 	    	cout<<ntleft[i].first<<" "<<ntleft[i].second<<endl;
 	    }
 	    cout<<"Points end\n";
+
+
+
+
 	    Node* right=lowerhull(pl,pmin,ntleft);
+
+
+
+
 	    if(left == NULL) {
 	        left = right;
 	        return left;
